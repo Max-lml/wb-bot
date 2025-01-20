@@ -1,4 +1,4 @@
-from aiogram import F
+
 from aiogram.types import Message
 from src.database import get_warehouses_from_db, get_warehouse_by_name
 from src.api import fetch_and_save_warehouses
