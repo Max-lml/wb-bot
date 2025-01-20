@@ -1,6 +1,15 @@
+import os
 import sqlite3
 from typing import List, Tuple, Optional
-from src.config import DB_PATH
+
+# Проверяем и создаём папку для базы данных, если её нет
+DB_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')
+if not os.path.exists(DB_FOLDER):
+    os.makedirs(DB_FOLDER)
+
+# Полный путь к файлу базы данных
+DB_PATH = os.path.join(DB_FOLDER, 'warehouses.db')
+
 
 def init_db():
     """Инициализация базы данных: создание таблицы, если её нет."""
@@ -17,6 +26,7 @@ def init_db():
     conn.commit()
     conn.close()
 
+
 def save_warehouses_to_db(warehouses: List[dict]) -> None:
     """Сохраняем список складов в базу данных SQLite."""
     conn = sqlite3.connect(DB_PATH)
@@ -29,6 +39,7 @@ def save_warehouses_to_db(warehouses: List[dict]) -> None:
     conn.commit()
     conn.close()
 
+
 def get_warehouses_from_db(limit: int = 5) -> List[Tuple]:
     """Получить список складов из базы данных с ограничением по количеству."""
     conn = sqlite3.connect(DB_PATH)
@@ -37,6 +48,7 @@ def get_warehouses_from_db(limit: int = 5) -> List[Tuple]:
     rows = cursor.fetchall()
     conn.close()
     return rows
+
 
 def get_warehouse_by_name(name: str) -> Optional[Tuple]:
     """Получить склад из базы данных по названию."""
