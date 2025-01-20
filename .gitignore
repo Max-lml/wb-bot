@@ -25,10 +25,6 @@ wheels/
 .installed.cfg
 *.egg
 
-# База данных
-*.db
-*.sqlite3
-*.sqlite
 
 # Переменные окружения
 .env
